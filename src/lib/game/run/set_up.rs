@@ -1,3 +1,5 @@
+use rand::distributions::DistIter;
+
 use crate::game::config::config::*;
 use crate::game::config::difficulty::*;
 use crate::game::config::words::*;
@@ -16,7 +18,7 @@ pub fn hangman() {
     game_menu();
     let difficulty = match_difficulty();
 
-    let word_to_guess = generate_random_word();
+    let word_to_guess = generate_random_word(&difficulty);
 
     let game_config = Config::new(difficulty, word_to_guess);
 
