@@ -16,7 +16,6 @@ impl MenuChoice {
     }
 }
 
-
 pub fn match_menu_choice() -> MenuChoice {
     let user_input = get_user_input();
 

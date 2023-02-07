@@ -1,8 +1,6 @@
 use crate::menu::user_input::get_user_input;
 use std::process::exit;
 
-
-
 pub enum Difficulty {
     Easy,
     Medium,
@@ -19,7 +17,6 @@ impl Difficulty {
         }
     }
 }
-
 
 pub fn match_difficulty() -> Difficulty {
     let user_input = get_user_input();
