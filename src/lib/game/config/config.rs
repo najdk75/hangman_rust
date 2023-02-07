@@ -8,10 +8,10 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(difficulty: Difficulty, word_to_guess: &str) -> Self {
+    pub fn new(difficulty: Difficulty, word_to_guess: String) -> Self {
         Self {
             difficulty,
-            word_to_guess: word_to_guess.to_string(),
+            word_to_guess,
             number_of_attempts: 7,
             current_word: String::new(),
         }

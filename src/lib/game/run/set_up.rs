@@ -1,5 +1,6 @@
 use crate::game::config::config::*;
 use crate::game::config::difficulty::*;
+use crate::game::config::words::*;
 use crate::game::run::hangman::*;
 use crate::menu::menu::*;
 use crate::menu::menu_choice::*;
@@ -15,9 +16,9 @@ pub fn hangman() {
     game_menu();
     let difficulty = match_difficulty();
 
-    // TODO : générer un mot aléatoire
+    let word_to_guess = generate_random_word();
 
-    let game_config = Config::new(difficulty, "Hello");
+    let game_config = Config::new(difficulty, word_to_guess);
 
     run(game_config);
 }

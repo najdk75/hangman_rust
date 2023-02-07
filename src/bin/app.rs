@@ -1,6 +1,9 @@
-use hangman::game::{config::{words::*, self}, run};
+use hangman::game::{
+    config::{self, words::*},
+    run,
+};
 fn main() {
- let word = generate_random_word();
+    let word = generate_random_word();
 
- println!("{}",word);
+    println!("{}", word);
 }
