@@ -1,21 +1,21 @@
 use super::difficulty::*;
 
 pub struct Config {
-    difficulty: Difficulty,
+    //difficulty: Difficulty,
     word_to_guess: String,
-    pub attempts : u8
+    pub attempts: u8,
 }
 
 impl Config {
-    pub fn new(difficulty: Difficulty, word_to_guess: String) -> Self {
+    pub fn new(word_to_guess: String) -> Self {
         Self {
-            difficulty,
+            //difficulty,
             word_to_guess,
-            attempts : 7,
+            attempts: 7,
         }
     }
 
     pub fn take_word(&self) -> String {
-        self.word_to_guess.clone()
+        self.word_to_guess.to_owned()
     }
 }
