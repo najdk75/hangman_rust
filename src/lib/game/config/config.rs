@@ -3,6 +3,7 @@ use super::difficulty::*;
 pub struct Config {
     difficulty: Difficulty,
     word_to_guess: String,
+    pub attempts : u8
 }
 
 impl Config {
@@ -10,6 +11,11 @@ impl Config {
         Self {
             difficulty,
             word_to_guess,
+            attempts : 7,
         }
+    }
+
+    pub fn take_word(&self) -> String {
+        self.word_to_guess.clone()
     }
 }
