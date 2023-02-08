@@ -80,3 +80,28 @@ pub fn generate_random_word(difficulty: &Difficulty) -> String {
             exit(1);
         })
 }
+
+pub fn word_as_vec(word: &str) -> Vec<String> {
+    word.chars().map(|c| c.to_string()).collect()
+}
+
+pub fn get_letter_occurrences(letters: &[String], letter: &str) -> Vec<usize> {
+    let mut indexes: Vec<usize> = Vec::new();
+    for (index, l) in letters.iter().enumerate() {
+        if l == letter {
+            indexes.push(index);
+        }
+    }
+
+    indexes
+}
+
+pub fn replace_letters(letters: &[String], occurences: &[usize], letter: &str) -> Vec<String> {
+    let mut new_letters: Vec<String> = letters.to_vec();
+
+    for o in occurences {
+        new_letters[*o] = letter.to_string();
+    }
+
+    new_letters
+}
