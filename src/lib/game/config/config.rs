@@ -1,5 +1,3 @@
-use super::difficulty::*;
-
 pub struct Config {
     //difficulty: Difficulty,
     word_to_guess: String,

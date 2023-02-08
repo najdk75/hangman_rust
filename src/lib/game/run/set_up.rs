@@ -19,8 +19,7 @@ pub fn hangman() {
     let difficulty = match_difficulty();
 
     let word_to_guess = generate_random_word(&difficulty);
-
-    let game_config = Config::new(difficulty, word_to_guess);
+    let game_config = Config::new(word_to_guess);
 
     run(game_config);
 }
