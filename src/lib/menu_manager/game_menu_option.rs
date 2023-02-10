@@ -16,14 +16,8 @@ impl GameMenuOption {
     }
 
     pub fn retrieve() -> GameMenuOption {
-        let user_input = get_user_input();
+        let user_input = get_user_input().expect("Could not read chosen option.");
     
-        if let Err(error) = user_input {
-            eprintln!("{}", error);
-            exit(1);
-        }
-    
-        let user_input = user_input.unwrap();
         match GameMenuOption::from_input(&user_input) {
             Some(menu_option) => menu_option,
             None => {
