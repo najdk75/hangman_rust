@@ -1,9 +1,5 @@
-use hangman::game::{
-    config::{self, difficulty::*, words::*},
-    run,
-};
-fn main() {
-    let word = generate_random_word(&Difficulty::Hard);
+use hangman::game::config::game_setup::*;
 
-    println!("{}", word);
+fn main() {
+    set_up();
 }

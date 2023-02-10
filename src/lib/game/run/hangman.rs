@@ -1,43 +1,38 @@
-use crate::game::config::config::Config;
-use crate::game::config::words::*;
-use crate::menu::user_input::*;
-use std::process::exit;
+use crate::game::config::game_setup::*;
+use crate::game::config::player::*;
+use crate::menu_manager::game_menu_option::*;
 
-pub fn run(game_config: Config) {
-    let word_to_guess = game_config.take_word();
-    let length = word_to_guess.len() as u8;
-    let word_to_guess_as_vec = word_as_vec(&word_to_guess);
-    let mut current: Vec<String> = (0..length).map(|_| "_".to_owned()).collect();
-
-    let mut attempts_left = game_config.attempts;
-    let mut guessed: u8 = 0;
+pub fn hangman(player: &mut Player, word_to_guess: &str) {
+    let mut end_game_alert = String::new();
 
     loop {
-        print_current(&current);
-        if guessed == length {
-            println!("Congratulations you have won");
-            println!("{}", word_to_guess);
-            exit(0); // peut etre revenir au menu un jour..
-        } else if attempts_left == 0 {
-            println!("You lost!");
-            println!("The word to guess was : {}", word_to_guess);
-            exit(0);
-        } else {
-            println!("Choose a letter");
-            let letter = get_letter();
-            if word_to_guess.contains(&letter) {
-                guessed += 1;
-                let indexes = get_letter_occurrences(&word_to_guess_as_vec, &letter);
-                current = replace_letters(&current, &indexes, &letter)
-            } else {
-                attempts_left -= 1;
-            }
+        if let GameState::Lost | GameState::Won = player.game_status() {
+            break;
+        }
+
+        player.display_word();
+        println!("Choose a letter, or guess the word directly!");
+
+        let player_guess = player.get_user_guess();
+        if player_guess.is_none() {
+            println!("You already typed that!");
+            continue;
+        }
+        match player.process_guess(word_to_guess, &player_guess.unwrap()) {
+            true => println!("Good job!"),
+            false => println!(
+                "Wrong answer..., Attempts left : {}",
+                player.remaining_attempts
+            ),
         }
     }
-}
 
-fn print_current(current: &[String]) {
-    for letter in current {
-        print!("{} ", letter);
+    match player.game_status() {
+        GameState::Won => end_game_alert.push_str("Congratulations, you have won."),
+        GameState::Lost => end_game_alert.push_str("You have lost."),
+        _ => {}
     }
+
+    display_end_alert(&end_game_alert, word_to_guess);
+    set_up();
 }

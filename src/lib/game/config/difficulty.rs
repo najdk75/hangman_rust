@@ -1,4 +1,4 @@
-use crate::menu::user_input::get_user_input;
+use crate::menu_manager::user_input::get_user_input;
 use std::process::exit;
 
 pub enum Difficulty {
@@ -16,21 +16,25 @@ impl Difficulty {
             _ => None,
         }
     }
-}
 
-pub fn match_difficulty() -> Difficulty {
-    let user_input = get_user_input();
-    if let Err(e) = user_input {
-        eprintln!("{}", e);
-        exit(1);
-    }
-
-    let user_input = user_input.unwrap();
-    match Difficulty::new(&user_input) {
-        Some(difficulty) => difficulty,
-        None => {
-            eprintln!("Difficulty does not exist.");
+    pub fn retrieve() -> Difficulty {
+        let user_input = get_user_input();
+        if let Err(e) = user_input {
+            eprintln!("{}", e);
             exit(1);
         }
+    
+        let user_input = user_input.unwrap();
+        match Difficulty::new(&user_input) {
+            Some(difficulty) => difficulty,
+            None => {
+                eprintln!("Difficulty does not exist.");
+                exit(1);
+            }
+        }
     }
+    
+
+
 }
+
