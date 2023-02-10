@@ -1,5 +1,4 @@
 use std::io::{self, Error};
-use std::process::exit;
 
 pub struct UserInput {
     pub input: String,
@@ -34,13 +33,7 @@ pub fn get_user_input() -> Result<String, Error> {
 }
 
 pub fn read_user_guess() -> UserInput {
-    let user_guess = match get_user_input() {
-        Ok(input) => input,
-        Err(e) => {
-            eprintln!("Could not get user's input\t {}", e);
-            exit(1);
-        }
-    };
 
+    let user_guess = get_user_input().expect("Could not read user's guess.");
     UserInput::new(&user_guess)
 }

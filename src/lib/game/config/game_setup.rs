@@ -28,13 +28,7 @@ pub fn set_up() {
 
 pub fn load_words_to_guess() -> Vec<String> {
     let path = "words/words_to_guess.txt";
-    let mut words_to_guess_file = match File::open(path) {
-        Ok(file) => file,
-        Err(e) => {
-            eprintln!("Could not open the file: {}\t error : {}", path, e);
-            exit(1);
-        }
-    };
+    let mut words_to_guess_file = File::open(path).expect("Could not load list of words to guess.");
 
     let mut words_to_guess = String::new();
     if let Err(e) = words_to_guess_file.read_to_string(&mut words_to_guess) {
